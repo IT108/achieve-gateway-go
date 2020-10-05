@@ -1,14 +1,17 @@
 package processor
 
-import . "../serialization"
-import "github.com/it108/achieve-broker-go"
+import (
+	. "../serialization"
+	"encoding/json"
+)
+import broker "gopkg.in/IT108/achieve-broker-go.v0"
 
 func Process(req *AppRequest) {
-	// TODO: kafka request
 	if req == nil {
 		return
 	}
-	achieve_broker_go.WriteMsg(req.Service, req.Data)
+	data, _ := json.Marshal(req.Data)
+	broker.WriteMsg(req.Service, req.Method, string(data))
 
 	print(req.Service)
 }

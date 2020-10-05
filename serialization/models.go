@@ -5,6 +5,7 @@ type AppRequest struct {
 	ClientId  string
 	RequestId int64
 	Service   string
-	Data      string
+	Method    string
+	Data      map[string]interface{}
 	Error     string
 }

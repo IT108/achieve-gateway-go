@@ -4,6 +4,8 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
 )
 
 var addr = flag.String("addr", ":8080", "http service address")
@@ -21,7 +23,19 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "home.html")
 }
 
+func shutdownService()  {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+
+	go func() {
+		oscall := <-c
+		log.Printf("system call:%+v", oscall)
+		os.Exit(0)
+	}()
+}
+
 func main() {
+	shutdownService()
 	flag.Parse()
 	hub := newHub()
 	go hub.run()
