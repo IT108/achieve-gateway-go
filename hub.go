@@ -3,6 +3,11 @@ package main
 import "./processor"
 import "./serialization"
 
+type Message struct {
+	clientID string
+	msg      []byte
+}
+
 // Hub maintains the set of active clients and broadcasts messages to the
 // clients
 type Hub struct {
@@ -15,6 +20,9 @@ type Hub struct {
 	// Inbound messages from the clients.
 	broadcast chan []byte
 
+	// Inbound messages from the internal clients.
+	send chan *Message
+
 	// Register requests from the clients.
 	register chan *Client
 
@@ -25,6 +33,7 @@ type Hub struct {
 func newHub() *Hub {
 	return &Hub{
 		broadcast:  make(chan []byte),
+		send:       make(chan *Message),
 		register:   make(chan *Client),
 		unregister: make(chan *Client),
 		clients:    make(map[string]*Client),
@@ -42,6 +51,15 @@ func (h *Hub) run() {
 			h.unregisterClient(client)
 		case message := <-h.broadcast:
 			processor.Process(serialization.Deserialize(string(message)))
+		case clientMsg := <-h.send:
+			if client, ok := h.clients[clientMsg.clientID]; ok {
+				select {
+					case client.send <- clientMsg.msg:
+				default:
+					close(client.send)
+					delete(h.clients, client.clientId)
+				}
+			}
 
 			//for _, client := range h.clients {
 			//	select {

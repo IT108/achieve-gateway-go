@@ -2,11 +2,19 @@ package processor
 
 import (
 	. "../serialization"
+	. "../utils"
 	"encoding/json"
+	broker "gopkg.in/IT108/achieve-broker-go.v0"
+	"log"
 )
-import broker "gopkg.in/IT108/achieve-broker-go.v0"
+
+var GateId string
+
+const GATE_ID_LEN = 10
 
 func Process(req *AppRequest) {
+	req.Data["GateId"] = GateId
+	req.Data["Sender"] = req.ClientId
 	if req == nil {
 		return
 	}
@@ -14,4 +22,9 @@ func Process(req *AppRequest) {
 	broker.WriteMsg(req.Service, req.Method, string(data))
 
 	print(req.Service)
+}
+
+func GenerateGateId() {
+	GateId = "gid_" + RandStringRunes(GATE_ID_LEN)
+	log.Println("Gate ID: ", GateId)
 }

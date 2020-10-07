@@ -6,8 +6,10 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"./processor"
 )
 
+var clientsHub *Hub
 var addr = flag.String("addr", ":8080", "http service address")
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
@@ -35,13 +37,15 @@ func shutdownService()  {
 }
 
 func main() {
+	processor.GenerateGateId()
 	shutdownService()
 	flag.Parse()
-	hub := newHub()
-	go hub.run()
+	clientsHub = newHub()
+	go clientsHub.run()
+	startConsumer()
 	http.HandleFunc("/", serveHome)
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		serveWs(hub, w, r)
+		serveWs(clientsHub, w, r)
 	})
 	err := http.ListenAndServe(*addr, nil)
 	if err != nil {
