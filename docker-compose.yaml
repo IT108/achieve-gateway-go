@@ -7,7 +7,7 @@ services:
     networks:
       - achieve
 
-  networks:
-    achieve:
-      external:
-        name: achieve_network_prod
+networks:
+  achieve:
+    external:
+      name: achieve_network_prod
