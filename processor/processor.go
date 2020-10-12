@@ -1,10 +1,10 @@
 package processor
 
 import (
-	. "../serialization"
-	. "../utils"
 	"encoding/json"
-	broker "gopkg.in/IT108/achieve-broker-go.v0"
+	broker "github.com/IT108/achieve-broker-go"
+	. "github.com/IT108/achieve-gateway-go/serialization"
+	. "github.com/IT108/achieve-gateway-go/utils"
 	"log"
 )
 

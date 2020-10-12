@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"./processor"
+	"github.com/IT108/achieve-gateway-go/processor"
 )
 
 var clientsHub *Hub

@@ -1,7 +1,7 @@
 package main
 
-import "./processor"
-import "./serialization"
+import "github.com/IT108/achieve-gateway-go/processor"
+import "github.com/IT108/achieve-gateway-go/serialization"
 
 type Message struct {
 	clientID string

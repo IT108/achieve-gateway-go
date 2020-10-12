@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./processor"
-	broker "gopkg.in/IT108/achieve-broker-go.v0"
+	broker "github.com/IT108/achieve-broker-go"
+	"github.com/IT108/achieve-gateway-go/processor"
 	"gopkg.in/confluentinc/confluent-kafka-go.v1/kafka"
 )
 

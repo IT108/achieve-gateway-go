@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"./utils"
-	"./serialization"
-	"./processor"
+	"github.com/IT108/achieve-gateway-go/serialization"
+	"github.com/IT108/achieve-gateway-go/utils"
+	"github.com/IT108/achieve-gateway-go/processor"
 	"github.com/gorilla/websocket"
 )
 
