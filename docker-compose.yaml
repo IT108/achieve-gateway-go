@@ -4,8 +4,10 @@ services:
     image: docker.pkg.github.com/it108/achieve-gateway-go/achieve-gateway-go:${GITHUB_SHA}
     container_name: achieve_gateway
     restart: always
+    networks:
+      - achieve
 
   networks:
-    default:
+    achieve:
       external:
         name: achieve_network_prod
