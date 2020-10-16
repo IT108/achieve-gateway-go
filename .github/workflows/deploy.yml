@@ -30,5 +30,11 @@ jobs:
       run: |
         echo  ${{ secrets.REGISTRY_TOKEN }} |  docker login docker.pkg.github.com -u ${{ github.ACTOR }} --password-stdin
     - name: deploy
+      env:
+        TARANTOOL_USER_NAME: ${TARANTOOL_USER_NAME}
+        TARANTOOL_HOST: ${TARANTOOL_HOST}
+        TARANTOOL_USER_PASSWORD: ${TARANTOOL_USER_PASSWORD}
+        BROKER_HOST: ${BROKER_HOST}
+        BROKER_PORT: ${BROKER_PORT}
       run: |
         docker-compose up -d

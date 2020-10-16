@@ -7,6 +7,8 @@ ENV GO111MODULE=on \
 
 WORKDIR /go/src/github.com/achieve-gateway-go
 COPY . .
+RUN go mod init
+RUN go mod tidy
 
 RUN go get -d -v ./...
 RUN go install -v ./...

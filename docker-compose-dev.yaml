@@ -1,8 +1,14 @@
 version: '3'
 services:
   gateway:
-    image: docker.pkg.github.com/it108/achieve-gateway-go/achieve-gateway-go:latest
+    image: docker.pkg.github.com/it108/achieve-gateway-go/achieve-gateway-go:${GITHUB_SHA}
     container_name: achieve_gateway
+    environment:
+      tarantool_user: ${TARANTOOL_USER_NAME}
+      tarantool_host: ${TARANTOOL_HOST}
+      tarantool_password: ${TARANTOOL_USER_PASSWORD}
+      broker_host: ${BROKER_HOST}
+      broker_port: ${BROKER_PORT}
     restart: always
 
 networks:
