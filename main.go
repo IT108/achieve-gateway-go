@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	broker "github.com/IT108/achieve-broker-go"
 	"github.com/IT108/achieve-gateway-go/processor"
 	"log"
 	"net/http"
@@ -39,6 +40,7 @@ func shutdownService()  {
 func main() {
 	processor.GenerateGateId()
 	shutdownService()
+	broker.ConfigureFromEnv()
 	flag.Parse()
 	clientsHub = newHub()
 	go clientsHub.run()
