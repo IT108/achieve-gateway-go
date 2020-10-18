@@ -36,5 +36,6 @@ jobs:
         TARANTOOL_USER_PASSWORD: ${{ secrets.TARANTOOL_USER_PASSWORD }}
         BROKER_HOST: ${{ secrets.BROKER_HOST }}
         BROKER_PORT: ${{ secrets.BROKER_PORT }}
+        ACHIEVE_GATE_PORT: ${{ secrets.ACHIEVE_GATE_PORT }}
       run: |
         docker-compose up -d

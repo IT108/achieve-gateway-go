@@ -9,6 +9,8 @@ services:
       tarantool_password: ${TARANTOOL_USER_PASSWORD}
       broker_host: ${BROKER_HOST}
       broker_port: ${BROKER_PORT}
+    ports:
+      - "15010:8080"
     restart: always
 
 networks:

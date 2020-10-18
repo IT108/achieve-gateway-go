@@ -10,6 +10,8 @@ services:
       tarantool_password: ${TARANTOOL_USER_PASSWORD}
       broker_host: ${BROKER_HOST}
       broker_port: ${BROKER_PORT}
+    ports:
+    - "${ACHIEVE_GATE_PORT}:8080"
     networks:
       - achieve
 
