@@ -26,5 +26,6 @@ RUN mkdir -p lib64 && cp /lib64/ld-linux-x86-64.so.2 lib64/
 FROM scratch
 
 COPY --chown=0:0 --from=builder /app /
+COPY static /static
 
 ENTRYPOINT ["/main"]
