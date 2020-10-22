@@ -15,6 +15,8 @@ const GATE_ID_LEN = 10
 func Process(req *AppRequest) {
 	req.Data["GateId"] = GateId
 	req.Data["Sender"] = req.ClientId
+	req.Data["Method"] = req.Method
+	req.Data["RequestId"] = req.RequestId
 	if req == nil {
 		return
 	}
