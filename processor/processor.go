@@ -5,7 +5,9 @@ import (
 	broker "github.com/IT108/achieve-broker-go"
 	. "github.com/IT108/achieve-gateway-go/serialization"
 	. "github.com/IT108/achieve-gateway-go/utils"
+	achieve_models_go "github.com/IT108/achieve-models-go"
 	"log"
+	"strconv"
 )
 
 var GateId string
@@ -13,10 +15,16 @@ var GateId string
 const GATE_ID_LEN = 10
 
 func Process(req *AppRequest) {
-	req.Data["GateId"] = GateId
-	req.Data["Sender"] = req.ClientId
-	req.Data["Method"] = req.Method
-	req.Data["RequestId"] = req.RequestId
+	request := achieve_models_go.Request{
+		RequestId: strconv.FormatInt(req.RequestId, 10),
+		Method:    req.Method,
+		Sender:    req.ClientId,
+		User:      "",
+		GateId:    GateId,
+		Data:      "",
+	}
+
+	req.Data["request"] = request
 	if req == nil {
 		return
 	}
